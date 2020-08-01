@@ -22,7 +22,7 @@ class Scene1 extends Phaser.Scene {
 
         let game = new RockPaperScissors();
 
-
+        //Load win/loss screens and set them invisible
         this.winScreen = this.add.image(400, 100, "winScreen");
         this.winScreen.setScale(0.5);
         this.winScreen.visible = false;
@@ -30,6 +30,14 @@ class Scene1 extends Phaser.Scene {
         this.loseScreen = this.add.image(400, 100, "loseScreen");
         this.loseScreen.setScale(0.5);
         this.loseScreen.visible = false;
+
+        //Scoreboard
+        this.playerScore = this.add.text(20, 20, "Player score: 0");
+        this.cpuScore = this.add.text(20, 40, "CPU score: 0");
+        this.roundCount = this.add.text(20, 60, "Round: 0");
+        this.playerChoice = this.add.text(20, 100, "Player choice: ");
+        this.cpuChoice = this.add.text(20, 120, "CPU Choice: ")
+
         //ROCK
         //Load and set position/size
         this.rock = this.add.image(200, 400, "rock").setInteractive();
@@ -79,6 +87,8 @@ class Scene1 extends Phaser.Scene {
     play(game, playerChoice) {
         var result = game.play(playerChoice)
         var cpuChoice = game.cpuChoice;
+
+        //Update sprites
         switch (cpuChoice) {
             case "rock":
                 this.questionmark.destroy();
@@ -97,14 +107,35 @@ class Scene1 extends Phaser.Scene {
                 break;
         }
 
-        if(result == "playerWin") {
+        //Update scoreboard
+        if (result == "inProgress") {
+            this.playerScore.destroy();
+            this.playerScore = this.add.text(20, 20, "Player score: " + game.userScore);
+
+            this.cpuScore.destroy();
+            this.cpuScore = this.add.text(20, 40, "CPU score: " + game.cpuScore);
+
+            this.roundCount.destroy();
+            this.roundCount = this.add.text(20, 60, "Round: " + game.round);
+
+            this.playerChoice.destroy();
+            this.playerChoice = this.add.text(20, 100, "Player choice: " + playerChoice);
+
+            this.cpuChoice.destroy();
+            this.cpuChoice = this.add.text(20, 120, "CPU Choice: " + game.cpuChoice);
+
+        }
+
+        //Determine win/loss screen
+        if (result == "playerWin") {
             this.questionmark.destroy();
             this.winScreen.visible = true;
         }
 
-        else if(result == "cpuWin") {
+        else if (result == "cpuWin") {
             this.questionmark.destroy();
             this.loseScreen.visible = true;
         }
+
     }
 }

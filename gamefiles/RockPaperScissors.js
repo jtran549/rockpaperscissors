@@ -15,12 +15,19 @@ class RockPaperScissors {
 
     determineWinner(userSelection, cpuSelection) {
         if (userSelection == cpuSelection) {
+            this.cpuScore++;
+            this.userScore++;
+            this.round++;
             return 'tie';
         }
         else if ((userSelection == "rock" && cpuSelection == "scissors") || (userSelection == "paper" && cpuSelection == "rock") || (userSelection == "scissors" && cpuSelection == "paper")) {
+            this.userScore++;
+            this.round++
             return 'win'
         }
         else {
+            this.cpuScore++;
+            this.round++;
             return 'lose';
         }
     }
@@ -28,19 +35,12 @@ class RockPaperScissors {
     play(userSelection) {
         var cpuSelection = this.generateCPUResponse();
         var result = this.determineWinner(userSelection, cpuSelection);
-        if (result == 'win') {
-            this.userScore++;
-            this.round++
-        }
-        else if (result == 'lose') {
-            this.cpuScore++;
-            this.round++;
-        }
-        if (this.round == 5) {
-            if(this.userScore > this.cpuScore){
+
+        if (this.round == 6) {
+            if (this.userScore > this.cpuScore) {
                 return "playerWin";
             }
-            else if(this.userScore < this.cpuScore){
+            else if (this.userScore < this.cpuScore) {
                 return "cpuWin";
             }
         }
