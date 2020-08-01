@@ -1,5 +1,6 @@
 class RockPaperScissors {
     constructor() {
+        this.cpuChoice = "";
         this.userScore = 0;
         this.cpuScore = 0;
         this.round = 0;
@@ -7,8 +8,9 @@ class RockPaperScissors {
 
     generateCPUResponse() {
         const acceptedValues = [`rock`, `paper`, `scissors`];
-
-        return acceptedValues[Math.floor(Math.random() * (3)) + 0];
+        var cpuChoice = acceptedValues[Math.floor(Math.random() * (3)) + 0];
+        this.cpuChoice = cpuChoice;
+        return cpuChoice;
     }
 
     determineWinner(userSelection, cpuSelection) {
@@ -41,6 +43,9 @@ class RockPaperScissors {
             else if(this.userScore < this.cpuScore){
                 return "cpuWin";
             }
+        }
+        else {
+            return "inProgress";
         }
     }
 }
