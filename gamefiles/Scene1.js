@@ -60,7 +60,7 @@ class Scene1 extends Phaser.Scene {
         //Onclick effects
         this.paper.on('pointerdown', function (pointer) {
             this.setTint(0x666666);
-            scene.play(game, 'scissors');
+            scene.play(game, 'paper');
         });
         this.paper.on('pointerup', function (pointer) {
             this.clearTint();
